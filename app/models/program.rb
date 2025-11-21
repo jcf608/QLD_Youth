@@ -5,10 +5,9 @@ class Program < ActiveRecord::Base
 
   validates :name, :program_type, :status, presence: true
   validates :status, inclusion: { in: %w[active inactive] }
-  validates :program_type, inclusion: { 
+  validates :program_type, inclusion: {
     in: %w[rehabilitation education employment counseling community_based residential]
   }
 
   scope :active, -> { where(status: 'active') }
 end
-

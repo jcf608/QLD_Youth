@@ -51,18 +51,21 @@ This repository contains a full-stack web application built with:
 For complete setup instructions, see [README_SETUP.md](./README_SETUP.md)
 
 ```bash
-# Backend
+# Install dependencies
 bundle install
-bundle exec rake db:create db:migrate db:seed
-bundle exec rackup -p 9292
+cd client && npm install && cd ..
 
-# Frontend (in another terminal)
-cd client
-npm install
-npm run dev
+# Setup database
+createdb qld_youth_development
+bundle exec rake db:migrate db:seed
+
+# Start both servers (ports 3090-3091)
+./start
 ```
 
-Visit: `http://localhost:3000`
+Visit: `http://localhost:3091`
+
+**Alternative:** Use `./start-dev.sh` for default ports (9292, 3000)
 
 ## License
 

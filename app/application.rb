@@ -30,11 +30,11 @@ class Application < Sinatra::Base
 
   get '/api/cases/:id' do
     case_record = YouthCase.includes(:youth, :case_manager, :interventions, :case_notes).find(params[:id])
-    case_record.to_json(include: { 
-      youth: {}, 
-      case_manager: {}, 
-      interventions: {}, 
-      case_notes: { methods: [:created_at_formatted] } 
+    case_record.to_json(include: {
+      youth: {},
+      case_manager: {},
+      interventions: {},
+      case_notes: { methods: [:created_at_formatted] }
     })
   rescue ActiveRecord::RecordNotFound
     status 404
@@ -44,7 +44,7 @@ class Application < Sinatra::Base
   post '/api/cases' do
     data = JSON.parse(request.body.read)
     case_record = YouthCase.create(data)
-    
+
     if case_record.persisted?
       status 201
       case_record.to_json
@@ -57,7 +57,7 @@ class Application < Sinatra::Base
   put '/api/cases/:id' do
     case_record = YouthCase.find(params[:id])
     data = JSON.parse(request.body.read)
-    
+
     if case_record.update(data)
       case_record.to_json
     else
@@ -86,7 +86,7 @@ class Application < Sinatra::Base
   post '/api/youth' do
     data = JSON.parse(request.body.read)
     youth = Youth.create(data)
-    
+
     if youth.persisted?
       status 201
       youth.to_json
@@ -119,7 +119,7 @@ class Application < Sinatra::Base
   post '/api/interventions' do
     data = JSON.parse(request.body.read)
     intervention = Intervention.create(data)
-    
+
     if intervention.persisted?
       status 201
       intervention.to_json
@@ -132,7 +132,7 @@ class Application < Sinatra::Base
   put '/api/interventions/:id' do
     intervention = Intervention.find(params[:id])
     data = JSON.parse(request.body.read)
-    
+
     if intervention.update(data)
       intervention.to_json
     else
@@ -148,7 +148,7 @@ class Application < Sinatra::Base
   post '/api/case-notes' do
     data = JSON.parse(request.body.read)
     note = CaseNote.create(data)
-    
+
     if note.persisted?
       status 201
       note.to_json
@@ -175,7 +175,7 @@ class Application < Sinatra::Base
   post '/api/programs' do
     data = JSON.parse(request.body.read)
     program = Program.create(data)
-    
+
     if program.persisted?
       status 201
       program.to_json
@@ -214,4 +214,3 @@ class Application < Sinatra::Base
     { error: 'Internal server error' }.to_json
   end
 end
-

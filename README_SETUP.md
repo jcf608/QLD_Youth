@@ -92,29 +92,53 @@ VITE_API_URL=http://localhost:9292
 
 ## 🏃 Running the Application
 
-You'll need two terminal windows:
+### Quick Start (Recommended)
 
-### Terminal 1: Start Backend Server
+Use the included startup script to run both servers:
+
+```bash
+./start
+```
+
+This will start:
+- **Backend API** on `http://localhost:3090`
+- **Frontend UI** on `http://localhost:3091`
+
+Both servers run in the background with logs at `/tmp/qld-backend.log` and `/tmp/qld-frontend.log`
+
+### Manual Start (Development)
+
+If you prefer separate terminals for better visibility:
+
+#### Terminal 1: Start Backend Server
 
 ```bash
 # From project root
-bundle exec rackup -p 9292
+bundle exec rackup -p 3090
 
 # Or use rerun for auto-reload during development
-bundle exec rerun 'rackup -p 9292'
+bundle exec rerun 'rackup -p 3090'
 ```
 
-The API will be available at: `http://localhost:9292`
+The API will be available at: `http://localhost:3090`
 
-### Terminal 2: Start Frontend Development Server
+#### Terminal 2: Start Frontend Development Server
 
 ```bash
 # From client directory
 cd client
-npm run dev
+npm run dev -- --port 3091
 ```
 
-The frontend will be available at: `http://localhost:3000`
+The frontend will be available at: `http://localhost:3091`
+
+### Alternative Ports
+
+For default ports (9292 backend, 3000 frontend), use:
+
+```bash
+./start-dev.sh
+```
 
 ## 📊 Database Structure
 
