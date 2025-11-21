@@ -120,8 +120,16 @@ fi
 
 echo "✅ Backend running on port $BACKEND_PORT (PID: $BACKEND_PID)"
 
-# Update frontend to use correct backend port
+# Check if frontend dependencies are installed
 cd client
+if [ ! -d "node_modules" ]; then
+    echo "📦 Installing frontend dependencies..."
+    npm install
+    echo "✅ Frontend dependencies installed"
+    echo ""
+fi
+
+# Update frontend to use correct backend port
 export VITE_API_URL="http://localhost:$BACKEND_PORT"
 
 # Start frontend server on port 3091
