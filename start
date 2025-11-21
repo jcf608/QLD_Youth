@@ -8,12 +8,72 @@ BACKEND_PORT=3090
 FRONTEND_PORT=3091
 
 # Check if PostgreSQL is running
-if ! pg_isready > /dev/null 2>&1; then
-    echo "❌ PostgreSQL is not running. Please start PostgreSQL first."
-    exit 1
+if ! pg_isready -h localhost > /dev/null 2>&1; then
+    echo "⚠️  PostgreSQL is not running"
+    echo ""
+    
+    # Check if Homebrew PostgreSQL is installed
+    POSTGRES_SERVICE=$(brew services list 2>/dev/null | grep postgresql | awk '{print $1}' | head -1)
+    
+    if [ -n "$POSTGRES_SERVICE" ]; then
+        echo "Would you like to start PostgreSQL ($POSTGRES_SERVICE)?"
+        echo ""
+        echo "  1) Start PostgreSQL and continue"
+        echo "  2) Exit and start manually"
+        echo ""
+        read -p "Enter your choice [1-2]: " choice
+        
+        case $choice in
+            1)
+                echo ""
+                echo "🔄 Starting PostgreSQL..."
+                brew services start "$POSTGRES_SERVICE"
+                
+                # Wait for PostgreSQL to be ready
+                max_attempts=10
+                attempt=0
+                while [ $attempt -lt $max_attempts ]; do
+                    if pg_isready -h localhost > /dev/null 2>&1; then
+                        echo "✅ PostgreSQL started successfully"
+                        echo ""
+                        break
+                    fi
+                    sleep 1
+                    attempt=$((attempt + 1))
+                done
+                
+                if [ $attempt -eq $max_attempts ]; then
+                    echo "⚠️  PostgreSQL started but not responding yet"
+                    echo "   Continuing anyway..."
+                    echo ""
+                fi
+                ;;
+            2)
+                echo ""
+                echo "Please start PostgreSQL and try again:"
+                echo "  brew services start $POSTGRES_SERVICE"
+                echo ""
+                exit 0
+                ;;
+            *)
+                echo ""
+                echo "❌ Invalid choice. Exiting..."
+                exit 1
+                ;;
+        esac
+    else
+        echo "PostgreSQL needs to be running."
+        echo ""
+        echo "Common ways to start PostgreSQL:"
+        echo "  • Homebrew: brew services start postgresql@14"
+        echo "  • Postgres.app: Open Postgres.app"
+        echo "  • Manual: pg_ctl start"
+        echo ""
+        exit 1
+    fi
+else
+    echo "✅ PostgreSQL is running"
 fi
-
-echo "✅ PostgreSQL is running"
 
 # Check if database exists
 if ! psql -lqt | cut -d \| -f 1 | grep -qw qld_youth_development; then
