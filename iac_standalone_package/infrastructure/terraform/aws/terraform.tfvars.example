@@ -1,0 +1,17 @@
+# AWS Terraform Variables Example
+# Copy this file to terraform.tfvars and fill in your values
+
+# AWS Region
+aws_region = "us-east-1"
+
+# Environment (dev, staging, production)
+environment = "dev"
+
+# Project name
+project_name = "utsv2"
+
+# Database Configuration
+db_username = "utsv2admin"
+db_password = "ChangeMe123!SecurePassword"  # Use a strong password!
+db_name     = "utsv2"
+

@@ -1,0 +1,21 @@
+# GCP Terraform Variables Example
+# Copy this file to terraform.tfvars and fill in your values
+
+# GCP Project (REQUIRED)
+gcp_project_id = "my-gcp-project-id"
+
+# GCP Region and Zone
+gcp_region = "us-central1"
+gcp_zone   = "us-central1-a"
+
+# Environment (dev, staging, production)
+environment = "dev"
+
+# Project name
+project_name = "utsv2"
+
+# Database Configuration
+db_username = "utsv2admin"
+db_password = "ChangeMe123!SecurePassword"  # Use a strong password!
+db_name     = "utsv2"
+

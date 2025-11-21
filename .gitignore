@@ -23,9 +23,10 @@ Thumbs.db
 *.tmp
 
 # Sensitive Information
-*.env
+.env
 .env.local
 .env.*.local
+!.env.example
 *credentials*
 *secrets*
 *private*
@@ -37,12 +38,25 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Dependencies (if any development occurs)
+# Dependencies
 node_modules/
+client/node_modules/
+client/dist/
 venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+vendor/bundle/
+
+# Ruby
+.bundle/
+*.gem
+*.rbc
+/.config
+
+# Database
+*.sqlite3
+*.db
 
 # Backup Files
 *.bak

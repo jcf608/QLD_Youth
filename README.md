@@ -40,6 +40,30 @@ Detailed use case scenarios are documented in:
 
 Kyndryl Strategic Sales & Solutioning Team
 
+## Application
+
+This repository contains a full-stack web application built with:
+- **Backend:** Sinatra + Ruby + ActiveRecord + PostgreSQL
+- **Frontend:** React + Vite + TailwindCSS + Lucide React
+
+### Quick Start
+
+For complete setup instructions, see [README_SETUP.md](./README_SETUP.md)
+
+```bash
+# Backend
+bundle install
+bundle exec rake db:create db:migrate db:seed
+bundle exec rackup -p 9292
+
+# Frontend (in another terminal)
+cd client
+npm install
+npm run dev
+```
+
+Visit: `http://localhost:3000`
+
 ## License
 
 This is internal project documentation for pro bono initiative planning.

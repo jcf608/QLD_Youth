@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: qld_youth_development
+
+test:
+  <<: *default
+  database: qld_youth_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+
