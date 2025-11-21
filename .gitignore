@@ -63,6 +63,10 @@ vendor/bundle/
 *.backup
 *~
 
+# Development Logs
+tmp/
+!tmp/README.md
+
 # Personal Notes (optional - remove if you want to track these)
 *PERSONAL*
 *TODO*

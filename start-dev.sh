@@ -40,11 +40,11 @@ trap cleanup EXIT
 
 # Start backend server
 cd "$(dirname "$0")"
-bundle exec rackup -p 9292 &
+~/.rbenv/shims/bundle exec rackup -p 9292 2>&1 | tee tmp/backend-dev.log &
 
 # Start frontend server
 cd client
-npm run dev &
+npm run dev 2>&1 | tee ../tmp/frontend-dev.log &
 
 # Wait for all background processes
 wait
